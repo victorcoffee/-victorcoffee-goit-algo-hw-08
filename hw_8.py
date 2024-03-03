@@ -2,6 +2,7 @@
 
 import os, re, datetime
 from collections import UserDict
+import pickle
 
 os.system("cls")
 
@@ -12,6 +13,8 @@ def input_error(func):
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
+        except FileNotFoundError:
+            return "Address Book File is not found"
         except KeyError:
             return "Give me name and phone please."
         except IndexError:
@@ -240,7 +243,7 @@ def parse_input(user_input):
     return cmd, *args
 
 
-# Додавання контакту. Зразок із ТЗ
+# Додавання контакту.
 @input_error
 def add_contact(args, book: AddressBook):
     name, phone, *_ = args
@@ -277,9 +280,27 @@ def show_all(book: AddressBook):
     return
 
 
+# Збереження адресної книги у файл
+@input_error
+def save_data(book, filename="addressbook.pkl"):
+    with open(filename, "wb") as f:
+        pickle.dump(book, f)
+
+
+# Зчитування адресної книги з файлу
+@input_error
+def load_data(filename="addressbook.pkl"):
+    try:
+        with open(filename, "rb") as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return AddressBook()  # Повернення нової адресної книги, якщо файл не знайдено
+
+
 # Основна програма
 def main():
-    book = AddressBook()
+    book = load_data()
+
     print("Welcome to the assistant bot!")
     while True:
         user_input = input("Enter a command: ")
@@ -315,6 +336,8 @@ def main():
 
         else:
             print("Invalid command.")
+
+    save_data(book)
 
 
 if __name__ == "__main__":
