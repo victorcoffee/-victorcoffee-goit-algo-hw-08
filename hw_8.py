@@ -8,7 +8,6 @@ os.system("cls")
 
 
 # Декоратор обробляє винятки, що виникають у функціях
-# Допрацювати? Перехоплюються лише ValueError.
 def input_error(func):
     def inner(*args, **kwargs):
         try:
