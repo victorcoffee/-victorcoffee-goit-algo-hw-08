@@ -1,4 +1,4 @@
-# Модуль 8
+# Модуль 8.
 
 import os, re, datetime
 from collections import UserDict

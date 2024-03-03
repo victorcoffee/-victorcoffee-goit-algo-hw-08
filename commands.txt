@@ -5,7 +5,7 @@ add Edward 0503007300
 change Tom 0123456789 0671234567
 add Sam 0504567890
 add-birthday Tom 04.03.1987
-add-birthday Sam 03.03.2001
+add-birthday Edward 05.03.1995
 add-birthday Jane 04.10.1961
 all
 birthdays
